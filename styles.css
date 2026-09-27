@@ -1,0 +1,289 @@
+/* =========================================================
+   HOME Nº 134 — ULTRA-SMOOTH ARCHITECTURAL SCROLL ENGINE
+   Styles, Responsive Layout, Micro-Interactions & Modals
+   ========================================================= */
+
+@charset "UTF-8";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  background-color: #080808;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  background-color: #080808;
+  color: #f5f5f5;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Subtle Film Grain */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* Cinematic Radial Vignette */
+.vignette-overlay {
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.4) 85%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+/* ================= FULL VIEWPORT WALKTHROUGH SECTIONS ================= */
+.walk-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-viewport {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.room-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.0);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+  filter: brightness(0.92) contrast(1.03);
+  will-change: transform;
+}
+
+/* Camera dolly zoom when active */
+.walk-section.in-view .room-media {
+  transform: scale(1.08);
+}
+
+/* ================= EDITORIAL OVERLAY TYPOGRAPHY ================= */
+.editorial-overlay {
+  position: absolute;
+  left: 6vw;
+  bottom: 12vh;
+  z-index: 20;
+  max-width: 560px;
+  pointer-events: auto;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.walk-section.in-view .editorial-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.editorial-tag {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(230, 225, 215, 0.75);
+  margin-bottom: 0.5rem;
+}
+
+.editorial-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.75);
+  margin-bottom: 0.75rem;
+}
+
+.editorial-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(0.75rem, 1.1vw, 0.92rem);
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: rgba(240, 235, 225, 0.85);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+/* ================= HOTSPOTS ================= */
+.hotspot {
+  position: absolute;
+  z-index: 25;
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.hotspot-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-family: sans-serif;
+  line-height: 1;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.hotspot:hover .hotspot-dot {
+  transform: scale(1.25);
+  background: #ffffff;
+  color: #0c0c0c;
+}
+
+.hotspot-pulse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  animation: pulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.9;
+  }
+  80%, 100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ================= HEADER NAV ================= */
+.nav-item {
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: #ffffff;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #ffffff;
+}
+
+.nav-item.active::after {
+  transform: scaleX(1);
+}
+
+/* ================= RIGHT RAIL SCRUBBER ================= */
+.rail-tick {
+  width: 14px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.rail-tick:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 22px;
+}
+
+.rail-tick.active {
+  background-color: #ffffff;
+  width: 26px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+
+/* ================= MODAL STYLES ================= */
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay .modal-card {
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-card::-webkit-scrollbar {
+  width: 4px;
+}
+.modal-card::-webkit-scrollbar-track {
+  background: rgba(20, 20, 20, 0.6);
+}
+.modal-card::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.4);
+  border-radius: 2px;
+}
+
+/* Studio Branding Glow */
+.glowing-logo span {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 25px rgba(212, 175, 55, 0.35);
+}
+
+/* Audio Pulse */
+.audio-playing #audio-wave {
+  background-color: #22c55e !important;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+  animation: audioPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes audioPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+/* Custom Scrollbar for Main Viewport */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}

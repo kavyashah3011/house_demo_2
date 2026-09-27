@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-neutral-950 text-neutral-100 selection:bg-stone-700 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOME Nº 134 — NPLUSJ STUDIO | Luxury Architectural Walkthrough</title>
+  <meta name="description" content="A private residence, visualized frame by frame. Cinematic architectural camera walkthrough by NPLUSJ Studio.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            display: ['"Cinzel"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="h-full w-full bg-neutral-950 font-sans antialiased select-none overflow-x-hidden">
+
+  <!-- Subtle 35mm Film Grain Overlay -->
+  <div class="grain-overlay pointer-events-none fixed inset-0 z-50 opacity-20"></div>
+
+  <!-- Ambient Cinematic Radial Vignette -->
+  <div class="vignette-overlay pointer-events-none fixed inset-0 z-40"></div>
+
+  <!-- Top Scroll Progress Bar -->
+  <div id="scroll-progress-line" class="fixed top-0 left-0 h-[2px] bg-gradient-to-r from-stone-400 via-white to-amber-200 z-50 transition-all duration-75" style="width: 0%;"></div>
+
+  <!-- ================= TOP HEADER NAVIGATION ================= -->
+  <header class="fixed top-0 left-0 right-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between pointer-events-auto bg-gradient-to-b from-neutral-950/90 via-neutral-950/40 to-transparent backdrop-blur-[2px]">
+    
+    <!-- Brand Title (Matches reel: "HOME Nº 134") -->
+    <div class="flex items-center gap-4 cursor-pointer" onclick="scrollToSection(0)">
+      <span class="font-serif tracking-[0.25em] text-sm uppercase text-neutral-100 font-medium">HOME Nº 134</span>
+    </div>
+
+    <!-- Center Navigation (Matches reel: ARRIVAL, LIVING, KITCHEN, BEDROOM, BATH, TERRACE) -->
+    <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-[11px] font-sans tracking-[0.2em] uppercase text-stone-400">
+      <button class="nav-item active" data-target="0" onclick="scrollToSection(0)">Arrival</button>
+      <button class="nav-item" data-target="2" onclick="scrollToSection(2)">Living</button>
+      <button class="nav-item" data-target="3" onclick="scrollToSection(3)">Kitchen</button>
+      <button class="nav-item" data-target="4" onclick="scrollToSection(4)">Bedroom</button>
+      <button class="nav-item" data-target="5" onclick="scrollToSection(5)">Bath</button>
+      <button class="nav-item" data-target="6" onclick="scrollToSection(6)">Terrace</button>
+    </nav>
+
+    <!-- Right Actions (Matches reel button: REQUEST PRIVATE VIEWING) -->
+    <div class="flex items-center gap-3">
+      <!-- Blueprint Specs Toggle -->
+      <button onclick="openModal('blueprint-modal')" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 text-[10px] tracking-[0.18em] uppercase text-stone-400 hover:text-stone-200 border border-stone-800 hover:border-stone-600 rounded-sm backdrop-blur-md bg-stone-950/40 transition">
+        <span>CAD Blueprints</span>
+      </button>
+
+      <!-- Request Private Viewing -->
+      <button onclick="openModal('viewing-modal')" class="px-4 sm:px-5 py-1.5 text-[11px] tracking-[0.18em] uppercase text-stone-200 hover:text-white border border-stone-400/50 hover:border-white rounded-sm backdrop-blur-md bg-white/5 hover:bg-white/10 transition duration-300">
+        Request Private Viewing
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= RIGHT SIDE VERTICAL PROGRESS TRACK ================= -->
+  <aside class="fixed right-6 sm:right-10 top-1/2 -translate-y-1/2 z-30 flex flex-col items-end gap-3 pointer-events-auto">
+    <div class="flex flex-col items-end gap-2.5">
+      <span id="rail-label" class="text-[9px] tracking-[0.3em] uppercase text-stone-400 mb-1 transition-all duration-300 font-mono">ARRIVAL</span>
+      
+      <!-- Interactive Rail with progress fill -->
+      <div id="rail-track" class="relative w-4 h-60 flex flex-col items-center justify-between cursor-pointer py-1">
+        <!-- Background Spine -->
+        <div class="absolute top-0 bottom-0 w-[1px] bg-stone-800"></div>
+        <!-- Active Progress Fill -->
+        <div id="rail-fill" class="absolute top-0 w-[2px] bg-stone-200 transition-all duration-75" style="height: 0%;"></div>
+        
+        <!-- Ticks for each architectural section -->
+        <div class="rail-tick active" data-index="0" onclick="scrollToSection(0)" title="Arrival (Exterior Full House)"></div>
+        <div class="rail-tick" data-index="1" onclick="scrollToSection(1)" title="The Threshold (Entering House)"></div>
+        <div class="rail-tick" data-index="2" onclick="scrollToSection(2)" title="The Living Hall"></div>
+        <div class="rail-tick" data-index="3" onclick="scrollToSection(3)" title="The Kitchen"></div>
+        <div class="rail-tick" data-index="4" onclick="scrollToSection(4)" title="The Bedroom"></div>
+        <div class="rail-tick" data-index="5" onclick="scrollToSection(5)" title="The Bath"></div>
+        <div class="rail-tick" data-index="6" onclick="scrollToSection(6)" title="The Roof Terrace"></div>
+        <div class="rail-tick" data-index="7" onclick="scrollToSection(7)" title="Studio Presentation"></div>
+      </div>
+
+      <span class="text-[8px] tracking-[0.2em] uppercase text-stone-500 font-mono">SCROLL</span>
+    </div>
+  </aside>
+
+  <!-- ================= BOTTOM STATUS BAR ================= -->
+  <footer class="fixed bottom-0 left-0 right-0 z-40 px-6 sm:px-10 py-5 flex items-center justify-between pointer-events-auto bg-gradient-to-t from-neutral-950/90 via-neutral-950/40 to-transparent backdrop-blur-[2px]">
+    
+    <!-- Bottom Left: Scene Counter (Matches reel: "01 / 06") -->
+    <div class="flex items-center gap-3 font-sans text-xs tracking-[0.25em] text-stone-300">
+      <span id="counter-current" class="text-white font-medium text-sm">01</span>
+      <span class="text-stone-600">/</span>
+      <span id="counter-total" class="text-stone-400 text-xs">06</span>
+      <span id="counter-phase" class="hidden sm:inline-block ml-2 text-[10px] uppercase tracking-widest text-stone-500 font-mono">EXTERIOR</span>
+    </div>
+
+    <!-- Center Controls: Auto Flythrough, Arrows, Ambient Sound -->
+    <div class="flex items-center gap-4 text-xs font-sans text-stone-400">
+      <button onclick="prevSection()" class="w-8 h-8 rounded-full border border-stone-800 hover:border-stone-500 flex items-center justify-center text-stone-300 hover:text-white transition" aria-label="Previous scene">
+        ‹
+      </button>
+
+      <!-- Auto Tour Play / Pause -->
+      <button id="autotour-btn" onclick="toggleAutoTour()" class="px-4 py-1.5 rounded-full border border-stone-800 hover:border-stone-500 text-[10px] tracking-[0.2em] uppercase flex items-center gap-2 text-stone-300 hover:text-white transition bg-stone-950/60 backdrop-blur-md">
+        <span id="tour-icon">▶</span>
+        <span id="tour-text">AUTO FLYTHROUGH</span>
+      </button>
+
+      <button onclick="nextSection()" class="w-8 h-8 rounded-full border border-stone-800 hover:border-stone-500 flex items-center justify-center text-stone-300 hover:text-white transition" aria-label="Next scene">
+        ›
+      </button>
+
+      <!-- Ambient Audio Generator -->
+      <button id="audio-toggle-btn" onclick="toggleAmbientAudio()" class="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-stone-800 hover:border-stone-500 text-[10px] tracking-[0.18em] uppercase text-stone-400 hover:text-stone-200 transition bg-stone-950/60">
+        <span id="audio-wave" class="inline-block w-2 h-2 rounded-full bg-stone-600"></span>
+        <span id="audio-label">SOUND: OFF</span>
+      </button>
+    </div>
+
+    <!-- Bottom Right: Credit (Matches reel: "A FILM BY NPLUSJ STUDIO") -->
+    <div class="flex items-center gap-4">
+      <span class="font-sans text-[10px] sm:text-[11px] tracking-[0.25em] uppercase text-stone-400">
+        A FILM BY NPLUSJ STUDIO
+      </span>
+    </div>
+  </footer>
+
+  <!-- ================= CONTINUOUS SMOOTH SCROLL CONTAINER ================= -->
+  <main id="scroll-wrapper" class="relative w-full">
+
+    <!-- SECTION 1: THE ARRIVAL (EXTERIOR FULL HOUSE) -->
+    <section class="walk-section" data-index="0" data-num="01" data-label="ARRIVAL" data-phase="EXTERIOR">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_01_arrival.jpg" alt="Home Nº 134 - The Arrival" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE I — EXTERIOR</span>
+        <h1 class="editorial-title">The Arrival</h1>
+        <p class="editorial-desc">Set on a wooded hillside, the residence emerges in quiet geometry against the pines.</p>
+      </div>
+      <!-- Hotspots -->
+      <div class="hotspot" style="top: 68%; left: 52%;" data-title="Cantilevered Deck" data-desc="Engineered Ipe timber terrace cantilevered seamlessly over natural stone outcropping.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: THE THRESHOLD (APPROACHING & ENTERING HOUSE) -->
+    <section class="walk-section" data-index="1" data-num="01.B" data-label="THRESHOLD" data-phase="ENTERING">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_01b_threshold.jpg" alt="Home Nº 134 - The Threshold" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE I.B — THE ENTRY</span>
+        <h1 class="editorial-title">The Threshold</h1>
+        <p class="editorial-desc">Linen curtains billow in the morning wind. The threshold dissolves the barrier between interior and wilderness.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 3: THE LIVING HALL (INSIDE) -->
+    <section class="walk-section" data-index="2" data-num="02" data-label="LIVING" data-phase="LIVING HALL">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_02_living.jpg" alt="Home Nº 134 - The Living Hall" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE II — LIVING SPACE</span>
+        <h1 class="editorial-title">The Living Hall</h1>
+        <p class="editorial-desc">Floor-to-ceiling glass frames panoramic valley views, connecting indoor calm with nature.</p>
+      </div>
+      <!-- Hotspots -->
+      <div class="hotspot" style="top: 42%; left: 88%;" data-title="Blackened Steel Library" data-desc="Floor-to-ceiling blackened steel joinery displaying monolithic stone sculptures and art.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+      <div class="hotspot" style="top: 45%; left: 24%;" data-title="Panoramic Glazing" data-desc="Triple-glazed 4.2m motorized sliding acoustic panels with zero-threshold track.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: THE KITCHEN -->
+    <section class="walk-section" data-index="3" data-num="03" data-label="KITCHEN" data-phase="CULINARY">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_03_kitchen.jpg" alt="Home Nº 134 - The Kitchen" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE III — CULINARY SUITE</span>
+        <h1 class="editorial-title">The Kitchen</h1>
+        <p class="editorial-desc">A sculpted stone island anchors warm timber cabinetry, made for slow mornings and long dinners.</p>
+      </div>
+      <!-- Hotspots -->
+      <div class="hotspot" style="top: 62%; left: 54%;" data-title="Honed Travertine Island" data-desc="Monolithic 4.2-meter natural travertine block with integrated induction and undermount sink.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+      <div class="hotspot" style="top: 48%; left: 44%;" data-title="Brushed Brass Mixer" data-desc="Bespoke Dornbracht brushed brass mixer faucet with concealed aerator and boiling tap.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: THE BEDROOM -->
+    <section class="walk-section" data-index="4" data-num="04" data-label="BEDROOM" data-phase="MASTER SUITE">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_04_bedroom.jpg" alt="Home Nº 134 - The Bedroom" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE IV — MASTER SUITE</span>
+        <h1 class="editorial-title">The Bedroom</h1>
+        <p class="editorial-desc">Framed panoramic glass opens to morning light, paired with warm textured walls and serene minimalism.</p>
+      </div>
+      <!-- Hotspots -->
+      <div class="hotspot" style="top: 36%; left: 48%;" data-title="Ribbon Glazing" data-desc="Continuous frameless panoramic glazing framing the pine canopy and mountain horizon.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: THE BATH -->
+    <section class="walk-section" data-index="5" data-num="05" data-label="BATH" data-phase="SPA SUITE">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_05_bath.jpg" alt="Home Nº 134 - The Bath" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE V — SPA SANCTUARY</span>
+        <h1 class="editorial-title">The Bath</h1>
+        <p class="editorial-desc">A carved stone tub, steam rising in the morning light — the ritual heart of the private wing.</p>
+      </div>
+      <!-- Hotspots -->
+      <div class="hotspot" style="top: 66%; left: 52%;" data-title="Carved Soaking Bath" data-desc="Freestanding monolithic carved limestone soaking bath weighing 1,200 kg.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+      <div class="hotspot" style="top: 52%; left: 26%;" data-title="Floor-Mounted Brass Spout" data-desc="Floor-mounted satin brass spout with thermostatic high-flow precision valve.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: THE ROOF TERRACE -->
+    <section class="walk-section" data-index="6" data-num="06" data-label="TERRACE" data-phase="ROOF TERRACE">
+      <div class="camera-viewport">
+        <img src="assets/home134/scene_06_terrace.jpg" alt="Home Nº 134 - The Roof Terrace" class="room-media" />
+      </div>
+      <div class="editorial-overlay">
+        <span class="editorial-tag">SCENE VI — ROOF TERRACE</span>
+        <h1 class="editorial-title">The Roof Terrace</h1>
+        <p class="editorial-desc">Above the treeline, an infinity pool meets the sky. The whole landscape becomes the living room.</p>
+      </div>
+      <!-- Hotspots -->
+      <div class="hotspot" style="top: 68%; left: 38%;" data-title="Infinity Plunge Pool" data-desc="Heated saline infinity pool with mosaic tile bed flush with the mountain ridgeline.">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-dot">+</div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: STUDIO PRESENTATION -->
+    <section class="walk-section bg-neutral-950 flex items-center justify-center" data-index="7" data-num="07" data-label="STUDIO" data-phase="PRESENTATION">
+      <div class="camera-viewport bg-neutral-950 flex items-center justify-center">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.08)_0,rgba(10,10,10,0.98)_70%)]"></div>
+      </div>
+      <div class="editorial-overlay flex flex-col items-center justify-center text-center px-4 w-full h-full max-w-4xl mx-auto z-20 !left-1/2 !bottom-auto !top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="studio-badge mb-3 tracking-[0.4em] text-xs uppercase text-stone-400 font-sans">NPLUSJ STUDIO PRESENTS</div>
+        
+        <div class="glowing-logo my-4">
+          <span class="font-sans font-light tracking-[0.3em] text-4xl sm:text-5xl text-neutral-100">nPLUSJ</span>
+        </div>
+        
+        <h1 class="font-serif text-5xl sm:text-7xl font-light tracking-wide text-stone-100 mt-2 mb-4">Home Nº 134</h1>
+        
+        <p class="font-serif text-lg sm:text-xl text-stone-300 italic max-w-xl mb-6">
+          A private residence, visualized frame by frame. Cinematic films, photoreal stills and immersive walkthroughs.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl text-left border-y border-stone-800/80 py-5 my-3 text-xs tracking-wider font-sans">
+          <div>
+            <span class="text-stone-500 uppercase block text-[10px]">Location</span>
+            <span class="text-stone-200 font-medium">Hudson Valley, NY</span>
+          </div>
+          <div>
+            <span class="text-stone-500 uppercase block text-[10px]">Living Area</span>
+            <span class="text-stone-200 font-medium">8,400 sq.ft</span>
+          </div>
+          <div>
+            <span class="text-stone-500 uppercase block text-[10px]">Primary Materials</span>
+            <span class="text-stone-200 font-medium">Travertine & Cedar</span>
+          </div>
+          <div>
+            <span class="text-stone-500 uppercase block text-[10px]">Visualized By</span>
+            <span class="text-stone-200 font-medium">NPLUSJ Studio</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 mt-6">
+          <button onclick="openModal('viewing-modal')" class="px-7 py-3 bg-stone-100 text-stone-950 hover:bg-white text-xs uppercase tracking-[0.2em] font-medium transition duration-300 rounded-sm shadow-xl">
+            Request Private Viewing
+          </button>
+          <button onclick="openModal('blueprint-modal')" class="px-7 py-3 border border-stone-700 hover:border-stone-400 text-stone-300 hover:text-white text-xs uppercase tracking-[0.2em] transition duration-300 rounded-sm backdrop-blur-md bg-stone-900/40">
+            View Architectural CAD
+          </button>
+          <button onclick="scrollToSection(0)" class="px-7 py-3 border border-stone-800 hover:border-stone-600 text-stone-400 hover:text-stone-200 text-xs uppercase tracking-[0.2em] transition duration-300 rounded-sm">
+            Replay Walkthrough ↺
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= HOTSPOT POPOVER CARD ================= -->
+  <div id="hotspot-card" class="fixed z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300 bg-neutral-900/95 border border-stone-700/80 rounded-sm p-4 max-w-xs shadow-2xl backdrop-blur-md">
+    <div class="flex items-center justify-between pb-1.5 border-b border-stone-800">
+      <span id="hotspot-card-title" class="font-serif text-sm text-stone-100 font-medium">Feature</span>
+      <span class="text-[9px] uppercase tracking-widest text-stone-500">SPECIFICATION</span>
+    </div>
+    <p id="hotspot-card-desc" class="text-xs text-stone-400 mt-2 font-sans leading-relaxed">Details...</p>
+  </div>
+
+  <!-- ================= MODAL: REQUEST PRIVATE VIEWING ================= -->
+  <div id="viewing-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="modal-card relative w-full max-w-lg bg-neutral-900 border border-stone-800 rounded-sm p-8 shadow-2xl overflow-hidden text-neutral-200">
+      <button onclick="closeModal('viewing-modal')" class="absolute top-5 right-5 text-stone-500 hover:text-white text-lg transition">✕</button>
+      <div class="text-center mb-6">
+        <span class="text-[10px] uppercase tracking-[0.3em] text-stone-500 block">EXCLUSIVE ACCESS</span>
+        <h2 class="font-serif text-3xl text-stone-100 font-light mt-1">Request Private Viewing</h2>
+        <p class="font-serif italic text-xs text-stone-400 mt-1">Home Nº 134 — Private Architectural Showing</p>
+      </div>
+
+      <form id="viewing-form" onsubmit="handleFormSubmit(event)" class="space-y-4 text-xs font-sans">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-stone-400 uppercase tracking-widest text-[10px] mb-1">Full Name</label>
+            <input type="text" required placeholder="Lord / Lady / Architect" class="w-full bg-neutral-950 border border-stone-800 focus:border-stone-500 p-2.5 rounded-sm text-stone-200 outline-none transition" />
+          </div>
+          <div>
+            <label class="block text-stone-400 uppercase tracking-widest text-[10px] mb-1">Email Address</label>
+            <input type="email" required placeholder="contact@domain.com" class="w-full bg-neutral-950 border border-stone-800 focus:border-stone-500 p-2.5 rounded-sm text-stone-200 outline-none transition" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-stone-400 uppercase tracking-widest text-[10px] mb-1">Phone Number</label>
+            <input type="tel" placeholder="+1 (555) 000-0000" class="w-full bg-neutral-950 border border-stone-800 focus:border-stone-500 p-2.5 rounded-sm text-stone-200 outline-none transition" />
+          </div>
+          <div>
+            <label class="block text-stone-400 uppercase tracking-widest text-[10px] mb-1">Requested Date</label>
+            <input type="date" required class="w-full bg-neutral-950 border border-stone-800 focus:border-stone-500 p-2.5 rounded-sm text-stone-200 outline-none transition" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-stone-400 uppercase tracking-widest text-[10px] mb-1">Party Size / Firm</label>
+          <input type="text" placeholder="Individual / Private Client / Design Firm" class="w-full bg-neutral-950 border border-stone-800 focus:border-stone-500 p-2.5 rounded-sm text-stone-200 outline-none transition" />
+        </div>
+
+        <div>
+          <label class="block text-stone-400 uppercase tracking-widest text-[10px] mb-1">Special Inquiries</label>
+          <textarea rows="2" placeholder="Specific spaces of interest, helicopter arrival, or photography permissions..." class="w-full bg-neutral-950 border border-stone-800 focus:border-stone-500 p-2.5 rounded-sm text-stone-200 outline-none transition"></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="w-full py-3 bg-stone-100 hover:bg-white text-stone-950 font-medium uppercase tracking-[0.2em] text-xs transition rounded-sm shadow-md">
+            Submit Private Inquiry
+          </button>
+        </div>
+      </form>
+
+      <div id="form-success" class="hidden text-center py-8">
+        <div class="text-3xl mb-2 text-stone-200">✓</div>
+        <h3 class="font-serif text-xl text-stone-100">Inquiry Confirmed</h3>
+        <p class="text-stone-400 text-xs mt-2">Our private client concierge will be in touch with the formal itinerary and security details.</p>
+        <button onclick="closeModal('viewing-modal')" class="mt-5 px-6 py-2 border border-stone-700 text-xs uppercase tracking-widest text-stone-300 hover:text-white rounded-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: CAD BLUEPRINTS ================= -->
+  <div id="blueprint-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="modal-card relative w-full max-w-4xl bg-neutral-900 border border-stone-800 rounded-sm p-6 sm:p-8 shadow-2xl max-h-[92vh] overflow-y-auto text-neutral-200">
+      <button onclick="closeModal('blueprint-modal')" class="absolute top-5 right-5 text-stone-500 hover:text-white text-lg transition">✕</button>
+
+      <div class="flex items-center justify-between border-b border-stone-800 pb-4 mb-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-[0.3em] text-stone-500 block">TECHNICAL ARCHITECTURE</span>
+          <h2 class="font-serif text-2xl sm:text-3xl text-stone-100 font-light">CAD Floor Plan & Specifications</h2>
+        </div>
+        <span class="text-xs font-mono text-stone-400 border border-stone-800 px-3 py-1 rounded">SCALE 1:100 @ A3</span>
+      </div>
+
+      <div class="relative w-full rounded border border-stone-800 overflow-hidden bg-neutral-950 mb-6">
+        <img src="assets/home134/floorplan.jpg" alt="Home Nº 134 Architectural Blueprint" class="w-full h-auto object-cover" />
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 mb-6 text-center text-[10px] uppercase tracking-wider font-sans">
+        <button onclick="closeModal('blueprint-modal'); scrollToSection(0);" class="p-2 border border-stone-800 hover:border-stone-500 hover:bg-stone-800/40 rounded transition text-stone-300">Arrival →</button>
+        <button onclick="closeModal('blueprint-modal'); scrollToSection(2);" class="p-2 border border-stone-800 hover:border-stone-500 hover:bg-stone-800/40 rounded transition text-stone-300">Living →</button>
+        <button onclick="closeModal('blueprint-modal'); scrollToSection(3);" class="p-2 border border-stone-800 hover:border-stone-500 hover:bg-stone-800/40 rounded transition text-stone-300">Kitchen →</button>
+        <button onclick="closeModal('blueprint-modal'); scrollToSection(4);" class="p-2 border border-stone-800 hover:border-stone-500 hover:bg-stone-800/40 rounded transition text-stone-300">Bedroom →</button>
+        <button onclick="closeModal('blueprint-modal'); scrollToSection(5);" class="p-2 border border-stone-800 hover:border-stone-500 hover:bg-stone-800/40 rounded transition text-stone-300">Spa Bath →</button>
+        <button onclick="closeModal('blueprint-modal'); scrollToSection(6);" class="p-2 border border-stone-800 hover:border-stone-500 hover:bg-stone-800/40 rounded transition text-stone-300">Terrace →</button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs border-t border-stone-800 pt-4">
+        <div>
+          <h4 class="font-serif text-sm text-stone-100 mb-2">Structural & Thermal</h4>
+          <ul class="space-y-1 text-stone-400 font-sans">
+            <li>• Foundation: Reinforced seismic rock-anchored concrete piles</li>
+            <li>• Glazing: Schüco triple-cavity argon insulated acoustic glass</li>
+            <li>• Heating: Geothermal radiant hydronic floor heating</li>
+            <li>• Energy: Integrated solar glass roof shingles with Tesla Powerwall</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-serif text-sm text-stone-100 mb-2">Interior Finishes</h4>
+          <ul class="space-y-1 text-stone-400 font-sans">
+            <li>• Flooring: Honed Roman travertine and rift-cut white oak</li>
+            <li>• Millwork: Custom bespoke cedar and European walnut joinery</li>
+            <li>• Bathroom: Hand-carved solid travertine bathtubs</li>
+            <li>• Outdoor: FSC-certified ipe decking with concealed fasteners</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
